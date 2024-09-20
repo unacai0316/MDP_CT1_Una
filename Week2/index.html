@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🐻Una First Webpage</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
         
         body {
@@ -75,10 +79,23 @@
          /* Hyperlink color */
          a {
             color: pink;
+         }
 
     </style>
+
 </head>
 <body>
+<header>
+        <nav>
+            <ul>
+                <li><a href="index.html"></a></li>
+                <li><a href="about.html"></a></li>
+                <li><a href="contact.html"></a></li>
+            </ul>
+        </nav>
+</header>
+
+<main
     <h1>Hello, World!👋</h1>
     <p>I'm Una, a dev student from 
         <a href="https://www.artcenter.edu/academics/graduate-degrees/media-design-practices/overview.html" target="_blank"> MDP</a> of 🟠ArtCenter in Pasadena.
@@ -124,7 +141,7 @@
                                                 aroundThose   SoftCreatures                                                                       
      
     </pre>
-
+    
     <!-- Colored Bear (initially hidden) -->
     <pre id="coloredBear" class="colored" style="display: none;">                          
                                            <span class="deeppink">Hello                  IamUna!!                                                                      
@@ -160,6 +177,17 @@
                                                 aroundThose   SoftCreatures</span>                                                                       
      
     </pre>
+    </main>
+
+    <footer>
+        <p>© 2024 Una's First Webpage</p>
+    </footer>
+
+     <!-- Combined JavaScript -->
+     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
     <script>
         /* Paint Me Mode */
         const paintButton = document.getElementById('paintButton');
@@ -202,7 +230,6 @@
             });
         });
 
-        
     </script>
 
 </body>
