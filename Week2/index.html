@@ -68,17 +68,6 @@
             text-align: center;
         }
 
-/* Text color classes */
-.deeppink {
-    color: deeppink;
-}
-.sienna {
-    color: sienna;
-}
-.mediumblue {
-    color: mediumblue;
-}
-
 /* Large text for eyes */
 .large {
     font-size: 24px; 
@@ -143,6 +132,13 @@ p {
         flex-direction: row;
     }
 }
+    section {
+    padding: 20px 10px;
+    }
+    #home{
+    background-color: azure; /* Light blue background for first section */
+    }
+
     </style>
 </head>
 <body>
@@ -150,20 +146,35 @@ p {
 <header>
     <nav>
         <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
 </header>
 
 <main class="container">
+    <section id="Home">
     <h1>Hello, World!👋</h1>
     <p>I'm Una, a dev student from 
         <a href="https://www.artcenter.edu/academics/graduate-degrees/media-design-practices/overview.html" target="_blank">MDP</a> of 🟠ArtCenter in Pasadena.
     </p>
+    </section>
 
+    <section id="about">
     <img src="https://images4.alphacoders.com/156/thumb-1920-15684.jpg" alt="a cute grizzly bear laughing" class="img">
+    </section>
+
+    <section>
+    <h2>About Bears all over the world!</h2>
+    <p>🐻Bears are carnivoran mammals of the family Ursidae. They are classified as caniforms, or doglike carnivorans. Although only eight species of bears are extant, they are widespread, appearing in a wide variety of habitats throughout the Northern Hemisphere and partially in the Southern Hemisphere. Bears are found on the continents of North America, South America, Europe, and Asia.</p>
+    </section>
+
+    <section id="contact">
+    <H2>Contact yout nearest bear today!</H2>
+    <p><a href="mailto:yourneighborhoodbear@example.com">yourneighborhoodbear@example.com</a></p>
+    <p><a href="tel:1-800-555-1234">1-800-555-1234</a></p>
+    </section>
 </main>
 
 <footer class="container">
