@@ -7,9 +7,143 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Custom CSS -->
-    <link href="styles.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <!-- Custom CSS embedded in the HTML -->
+    <style>
+        body {
+            font-family: 'Helvetica', 'Arial', 'Verdana', 'Tahoma', 'Geneva', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Navigation bar styles */
+        nav {
+            background-color: #f0f0f0; /* Light gray background */
+            padding: 10px;
+            border-bottom: 2px solid #333; /* Dark bottom border */
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333; /* Dark text color */
+            font-weight: bold;
+            padding: 5px 10px;
+        }
+
+        nav ul li a:hover {
+            color: deeppink; /* Change text color on hover */
+        }
+
+        /* Image */
+        .img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 20px;
+        }
+
+        /* Container for responsive layout */
+        .container {
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 800px;
+            text-align: center;
+        }
+
+/* Text color classes */
+.deeppink {
+    color: deeppink;
+}
+.sienna {
+    color: sienna;
+}
+.mediumblue {
+    color: mediumblue;
+}
+
+/* Large text for eyes */
+.large {
+    font-size: 24px; 
+}
+
+/* Link styling */
+a {
+    color: pink;
+}
+
+/* Responsive text */
+h1 {
+    font-size: 32px;
+}
+
+p {
+    font-size: 16px; 
+}
+
+/* Small text class */
+.small-text {
+    font-size: 12px;
+}
+
+/* Row class for flexbox layout */
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 24px; 
+    }
+
+    p {
+        font-size: 14px; 
+    }
+
+    .large {
+        font-size: 20px; 
+    }
+
+    .small-text {
+        font-size: 10px; 
+    }
+
+    .img {
+        max-width: 30px;
+    }
+
+    /* Apply row layout to nav bar */
+    nav {
+        display: flex;
+        flex-direction: column;
+    }
+
+    nav.row {
+        flex-direction: row;
+    }
+}
+    </style>
 </head>
 <body>
 
@@ -23,120 +157,23 @@
     </nav>
 </header>
 
-<main>
+<main class="container">
     <h1>Hello, World!👋</h1>
     <p>I'm Una, a dev student from 
         <a href="https://www.artcenter.edu/academics/graduate-degrees/media-design-practices/overview.html" target="_blank">MDP</a> of 🟠ArtCenter in Pasadena.
     </p>
 
-    <img src="https://images4.alphacoders.com/156/thumb-1920-15684.jpg" alt="a cute grizzly bear laughing">
+    <img src="https://images4.alphacoders.com/156/thumb-1920-15684.jpg" alt="a cute grizzly bear laughing" class="img">
+</main>
 
-    <!-- Paint Me Button -->
-    <button id="paintButton">Paint Me!</button>
+<footer class="container">
+    <p>© 2024 Una's First Webpage</p>
+</footer>
 
-    <!-- Default Bear (without colors) -->
-    <div class="ascii-container">
-        <pre id="defaultBear">                          
-                                           Hello                  IamUna!!                                                                      
-                                         MyHometown isVeryHumidGlommyHotOften                                                                   
-                                       ThatsWhyIli                keToBuildA      uuuuuuuuuu     uuuuuunnn              aaaaaaaaaaaaaaa        
-                                       CuteVibrant                    CozyPl         uuuuuuu       uuuu  nnnnnnnnnnnnnn   aaaa     aaaaaaa     
-                                      aceThruMy                       Design          uuuuuu       uuuu   nnnnnnnnnnnnnnn        aaaaaaaaa      
-                                       Aesthet                         ics!           uuuuuu       uuuu   nnnnnn     nnnn   aaaaaaaaaaaaaa      
-                                        Ireally                           ,            uuuuuuu     uuuuu   nnnnn      nnnn  aaaaaa    aaaaa      
-                            oo               w                            a            uuuuuuuuuuuuuuuu   nnnn       nnnnnaaaaaa     aaaaa       
-                 !IA    SU                   n        <span class="large eye" id="left-eye">熊</span>         <span class="large eye" id="right-eye">熊</span>       to             uuuuuuuuuuuuuuu  nnnnnn    nnnnnnaaaaa      aaaaa       
-              N   GLASSE                     m             🐻            ak              uuuuuuuuuuuuuu   nnnnnnnn   nnnnnnaaaaaa    aaaaaa       
-            S!COOLFORSUM-                    t            意思是           h                  uuuuuuuuu    nnnnnnnnn  nnnnnnnnaaaaaaaaaaaaaaaaaa   
-          MERATTHE  BEAC                      i         !很友善的熊!       s                                                                        
-            HHAHA                               w                       orl                  B                                                    
-                                                dA                  bea                       BB                                                 
-                                                   uti           fulPlace                    BBBBB  EEEEEE   AAA   RRRRR                        
-                                           so                            ev                  BB  B  EEEE    AAAAA  RR RR                        
-                                         er              "Real             y1                BBBBBB  EEEEEE AAAAAAARRR RRR                     
-                                       c              ilityisSTHwe          anfee                                                                
-                                     l                CreateTogether           safe&                                                              
-                                   peace              -Ruha Benjamin  ar      fulAll                                                            
-                                   theT                Let'sBeSoft   oun    ime!ev                                                            
-                                   enJus     tAt        nFriendly     d  inyCorner                                                              
-                                    WillMake   a           toPPL        h   uge                                                                 
-                                        diff      e                      r                                                                        
-                                                en                     ce                                                                       
-                                                Il         i ke         S                                                                       
-                                                m          a l          l                                                                       
-                                               Ho          t Po         tBC                                                                     
-                                              ItRemindsmeOfH  ome.AnotherTh                                                                    
-                                              ingIlikeIsNic  ePPlIlikeWhen                                                                    
-                                                aroundThose   SoftCreatures                                                                       
-     
-    </pre>
-    </div>
-    
-    <!-- Colored Bear (initially hidden) -->
-    <div class="ascii-container">
-    <pre id="coloredBear" class="colored" style="display: none;">                          
-                                           <span class="deeppink">Hello                  IamUna!!                                                                      
-                                         MyHometown</span> <span class="mediumblue">isVeryHumidGlo</span><span class="deeppink">mmyHotOften                                                                   
-                                       ThatsWhyIli                keToBuildA</span>      <span class="mediumblue">uuuuuuuuuu     uuuuuunnn              aaaaaaaaaaaaaaa</span>        
-                                       <span class="deeppink">CuteVibrant                    CozyPl</span>         <span class="mediumblue">uuuuuuu       uuuu  nnnnnnnnnnnnnn   aaaa     aaaaaaa</span>     
-                                      <span class="deeppink">aceThruMy                       Design</span>          <span class="mediumblue">uuuuuu       uuuu   nnnnnnnnnnnnnnn        aaaaaaaaa</span>      
-                                       <span class="deeppink">Aesthet                         ics!</span>           <span class="mediumblue">uuuuuu       uuuu   nnnnnn     nnnn   aaaaaaaaaaaaaa</span>      
-                                        <span class="deeppink">Ireally                           ,</span>            <span class="mediumblue">uuuuuuu     uuuuu   nnnnn      nnnn  aaaaaa    aaaaa      
-                            oo               w                            a            uuuuuuuuuuuuuuuu   nnnn       nnnnnaaaaaa     aaaaa       
-                 !IA    SU                   n</span>        <span class="large eye sienna" id="left-eye">熊</span>         <span class="large eye sienna" id="right-eye">熊</span>       <span class="mediumblue">to             uuuuuuuuuuuuuuu  nnnnnn    nnnnnnaaaaa      aaaaa       
-              N   GLASSE                     m             🐻            ak              uuuuuuuuuuuuuu   nnnnnnnn   nnnnnnaaaaaa    aaaaaa       
-            S!COOLFORSUM-                    t            意思是           h                  uuuuuuuuu    nnnnnnnnn  nnnnnnnnaaaaaaaaaaaaaaaaaa   
-          MERATTHE  BEAC                      i         !很友善的熊!       s                                                                        
-            HHAHA                               w                       orl</span>                  <span class="deeppink">B</span>                                                    
-                                                <span class="mediumblue">dA                  bea</span>                       <span class="deeppink">BB</span>                                                 
-                                                <span class="mediumblue">   uti           fulPlace</span>                    <span class="deeppink">BBBBB  EEEEEE   AAA   RRRRR</span>                        
-                                           <span class="mediumblue">so                            ev</span>                  <span class="deeppink">BB  B  EEEE    AAAAA  RR RR</span>                        
-                                         <span class="mediumblue">er</span>              <span class="deeppink">"Real</span>             <span class="mediumblue">y1</span>                <span class="deeppink">BBBBBB  EEEEEE AAAAAAARRR RRR</span>                     
-                                        <span class="mediumblue">c</span>              <span class="deeppink">ilityisSTHwe</span>          <span class="mediumblue">anfee</span>                                                                 
-                                     <span class="mediumblue">l</span>                <span class="deeppink">CreateTogether</span>           <span class="mediumblue">safe&</span>                                                              
-                                   <span class="mediumblue">peace</span>              <span class="deeppink">-Ruha Benjamin</span>  <span class="mediumblue">ar      fulAll                                                            
-                                   theT</span>                <span class="deeppink">Let'sBeSoft</span>   <span class="mediumblue">oun    ime!ev                                                            
-                                   enJus     tAt</span>        <span class="deeppink">nFriendly</span>     <span class="mediumblue">d  inyCorner                                                              
-                                    WillMake   a</span>           <span class="deeppink">toPPL</span>        <span class="mediumblue">h   uge                                                                 
-                                        diff      e                      r                                                                        
-                                                en                     ce                                                                       
-                                                Il         i ke         S                                                                       
-                                                m          a l          l                                                                       
-                                               Ho          t Po         tBC</span>                                                                     
-                                              <span class="deeppink">ItRemindsmeOfH  ome.AnotherTh                                                                    
-                                              ingIlikeIsNic  ePPlIlikeWhen                                                                    
-                                                aroundThose   SoftCreatures</span>                                                                       
-     
-    </pre>
-    </div>
-    </main>
-
-    <footer>
-        <p>© 2024 Una's First Webpage</p>
-    </footer>
-
-    <!-- JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <script>
-    /* Toggle Paint Me Mode */
-    const paintButton = document.getElementById('paintButton');
-    const defaultBear = document.getElementById('defaultBear');
-
-    paintButton.addEventListener('click', () => {
-        if (defaultBear.style.color === 'deeppink') {
-            defaultBear.style.color = '';
-            paintButton.textContent = 'Paint Me!';
-        } else {
-            defaultBear.style.color = 'deeppink';
-            paintButton.textContent = 'Unpaint Me :(';
-        }
-    });
-
-    /* Moveable eyes (if you have eye logic) */
-    </script>
+<!-- JavaScript -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>
