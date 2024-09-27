@@ -1,8 +1,15 @@
+/* Global styles for all screen sizes */
 body {
     font-family: 'Helvetica', 'Arial', 'Verdana', 'Tahoma', 'Geneva', sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* Default (Desktop, large screen) */
+body {
+    background-color: white;
+    color: black;
 }
 
 /* Navigation bar styles */
@@ -53,31 +60,25 @@ nav ul li a:hover {
     text-align: center;
 }
 
-/* Large text for eyes */
-.large {
-    font-size: 24px; 
-}
-
-/* Link styling */
-a {
-    color: pink;
-}
-
-/* Responsive text */
+/* Text styles */
 h1 {
     font-size: 32px;
 }
 
 p {
-    font-size: 16px; 
+    font-size: 16px;
 }
 
-/* Small text class */
+/* Responsive text for small devices */
+.large {
+    font-size: 24px;
+}
+
 .small-text {
     font-size: 12px;
 }
 
-/* Row class for flexbox layout */
+/* Flexbox row layout */
 .row {
     display: flex;
     flex-direction: row;
@@ -85,43 +86,72 @@ p {
     align-items: center;
 }
 
-/* Media queries for responsiveness */
-@media (max-width: 600px) {
+/* Media queries for iPad (medium size screen) */
+@media (max-width: 1024px) and (min-width: 768px) {
+    body {
+        background-color: lightblue; /* Change background color to light blue */
+        color: darkblue; /* Text color changes to dark blue */
+    }
+
     h1 {
-        font-size: 24px; 
+        font-size: 28px; /* Adjust font size for medium screens */
     }
 
     p {
-        font-size: 14px; 
-    }
-
-    .large {
-        font-size: 20px; 
-    }
-
-    .small-text {
-        font-size: 10px; 
+        font-size: 14px;
     }
 
     .img {
-        max-width: 200px;
+        max-width: 250px; /* Image size for medium screens */
     }
 
-    /* Apply row layout to nav bar */
-    nav {
-        display: flex;
-        flex-direction: column;
-    }
-
-    nav.row {
-        flex-direction: row;
+    .container {
+        max-width: 700px;
+        background-color: #e0f7fa; /* Slightly different container background */
     }
 }
 
+/* Media queries for mobile (small size screen) */
+@media (max-width: 767px) {
+    body {
+        background-color: lightgreen; /* Change background color to light green */
+        color: darkgreen; /* Text color changes to dark green */
+    }
+
+    h1 {
+        font-size: 24px; /* Adjust font size for small screens */
+    }
+
+    p {
+        font-size: 12px;
+    }
+
+    .img {
+        max-width: 200px; /* Image size for small screens */
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .container {
+        max-width: 90%;
+        background-color: #dff0d8; /* A different container background for mobile */
+    }
+}
+
+/* Section padding */
 section {
     padding: 20px 10px;
 }
 
+/* Default background for the home section */
 #home {
     background-color: azure; /* Light blue background for first section */
 }
