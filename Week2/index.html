@@ -9,9 +9,9 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
+
+    <script type="module" src="./script.js"></script>
     
-    <!-- 引入 Spline Viewer -->
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
 </head>
 <body>
 
@@ -33,18 +33,27 @@
         </p>
     </section>
 
-    <section>
-        <!-- 用於渲染 Spline 場景的 Spline Viewer -->
-        <spline-viewer url="https://prod.spline.design/TihVBOfWXIx69TRp/scene.splinecode"></spline-viewer>
-    </section>
+    <!-- Spline Vanilla 的區域 -->
+        <!--<canvas id="canvas3d"></canvas>
+    <script type="module">
+      import { Application } from './runtime.js';
+      const canvas = document.getElementById('canvas3d');
+      const app = new Application(canvas);
+      app.load('./scene.splinecode');
+    </script>  -->
+    <!-- Spline Vanilla 的區域 -->
+
+    <!-- 先放置 3D 物件的區域 -->
     
+    <!-- 再放置熊圖片的區域 -->
     <section id="about">
         <img src="https://images4.alphacoders.com/156/thumb-1920-15684.jpg" alt="a cute grizzly bear laughing" class="img">
     </section>
 
+    <!-- 其餘內容保持不變 -->
     <section>
         <h2>About Bears all over the world!</h2>
-        <p>🐻Bears are carnivoran mammals of the family Ursidae. They are classified as caniforms, or doglike carnivorans. Although only eight species of bears are extant, they are widespread, appearing in a wide variety of habitats throughout the Northern Hemisphere and partially in the Southern Hemisphere. Bears are found on the continents of North America, South America, Europe, and Asia.</p>
+        <p>🐻Bears are carnivoran mammals...</p>
     </section>
 
     <section id="contact">
@@ -57,6 +66,5 @@
 <footer class="container">
     <p>© 2024 Una's First Webpage</p>
 </footer>
-
 </body>
 </html>
