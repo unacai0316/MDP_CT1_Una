@@ -7,139 +7,10 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Bootstrap Icons CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" rel="stylesheet">
-
-    <!-- Custom CSS embedded in the HTML -->
-    <style>
-        body {
-            font-family: 'Helvetica', 'Arial', 'Verdana', 'Tahoma', 'Geneva', sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* Navigation bar styles */
-        nav {
-            background-color: #f0f0f0; /* Light gray background */
-            padding: 10px;
-            border-bottom: 2px solid #333; /* Dark bottom border */
-        }
-
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        nav ul li {
-            margin: 0 15px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: #333; /* Dark text color */
-            font-weight: bold;
-            padding: 5px 10px;
-        }
-
-        nav ul li a:hover {
-            color: deeppink; /* Change text color on hover */
-        }
-
-        /* Image */
-        .img {
-            width: 100%;
-            max-width: 300px;
-            height: auto;
-            border-radius: 20px;
-        }
-
-        /* Container for responsive layout */
-        .container {
-            padding: 10px;
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            margin: 20px auto;
-            max-width: 800px;
-            text-align: center;
-        }
-
-/* Large text for eyes */
-.large {
-    font-size: 24px; 
-}
-
-/* Link styling */
-a {
-    color: pink;
-}
-
-/* Responsive text */
-h1 {
-    font-size: 32px;
-}
-
-p {
-    font-size: 16px; 
-}
-
-/* Small text class */
-.small-text {
-    font-size: 12px;
-}
-
-/* Row class for flexbox layout */
-.row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* Media queries for responsiveness */
-@media (max-width: 600px) {
-    h1 {
-        font-size: 24px; 
-    }
-
-    p {
-        font-size: 14px; 
-    }
-
-    .large {
-        font-size: 20px; 
-    }
-
-    .small-text {
-        font-size: 10px; 
-    }
-
-    .img {
-        max-width: 200px;
-    }
-
-    /* Apply row layout to nav bar */
-    nav {
-        display: flex;
-        flex-direction: column;
-    }
-
-    nav.row {
-        flex-direction: row;
-    }
-}
-    section {
-    padding: 20px 10px;
-    }
-    #home{
-    background-color: azure; /* Light blue background for first section */
-    }
-
-    </style>
+    <!-- Custom CSS -->
+    <link href="styles.css" rel="stylesheet">
 </head>
 <body>
 
@@ -154,26 +25,26 @@ p {
 </header>
 
 <main class="container">
-    <section id="Home">
-    <h1>Hello, World!👋</h1>
-    <p>I'm Una, a dev student from 
-        <a href="https://www.artcenter.edu/academics/graduate-degrees/media-design-practices/overview.html" target="_blank">MDP</a> of 🟠ArtCenter in Pasadena.
-    </p>
+    <section id="home">
+        <h1>Hello, World!👋</h1>
+        <p>I'm Una, a dev student from 
+            <a href="https://www.artcenter.edu/academics/graduate-degrees/media-design-practices/overview.html" target="_blank">MDP</a> of 🟠ArtCenter in Pasadena.
+        </p>
     </section>
 
     <section id="about">
-    <img src="https://images4.alphacoders.com/156/thumb-1920-15684.jpg" alt="a cute grizzly bear laughing" class="img">
+        <img src="https://images4.alphacoders.com/156/thumb-1920-15684.jpg" alt="a cute grizzly bear laughing" class="img">
     </section>
 
     <section>
-    <h2>About Bears all over the world!</h2>
-    <p>🐻Bears are carnivoran mammals of the family Ursidae. They are classified as caniforms, or doglike carnivorans. Although only eight species of bears are extant, they are widespread, appearing in a wide variety of habitats throughout the Northern Hemisphere and partially in the Southern Hemisphere. Bears are found on the continents of North America, South America, Europe, and Asia.</p>
+        <h2>About Bears all over the world!</h2>
+        <p>🐻Bears are carnivoran mammals of the family Ursidae. They are classified as caniforms, or doglike carnivorans. Although only eight species of bears are extant, they are widespread, appearing in a wide variety of habitats throughout the Northern Hemisphere and partially in the Southern Hemisphere. Bears are found on the continents of North America, South America, Europe, and Asia.</p>
     </section>
 
     <section id="contact">
-    <H2>Contact yout nearest bear today!</H2>
-    <p><a href="mailto:yourneighborhoodbear@example.com">yourneighborhoodbear@example.com</a></p>
-    <p><a href="tel:1-800-555-1234">1-800-555-1234</a></p>
+        <h2>Contact your nearest bear today!</h2>
+        <p><a href="mailto:yourneighborhoodbear@example.com">yourneighborhoodbear@example.com</a></p>
+        <p><a href="tel:1-800-555-1234">1-800-555-1234</a></p>
     </section>
 </main>
 
@@ -182,6 +53,7 @@ p {
 </footer>
 
 <!-- JavaScript -->
+<script src="script.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
