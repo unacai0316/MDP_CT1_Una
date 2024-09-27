@@ -1,15 +1,15 @@
 /* Global styles for all screen sizes */
 body {
-    font-family: 'Helvetica', 'Arial', 'Verdana', 'Tahoma', 'Geneva', sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Default (Desktop, large screen) */
+/* Default (Mobile, small screen) - Sans-serif for easy reading */
 body {
-    background-color: white;
-    color: black;
+    font-family: 'Helvetica', 'Arial', 'Verdana', 'Tahoma', 'Geneva', sans-serif;
+    background-color: lightgreen; /* Change background color to light green */
+    color: darkgreen; /* Text color changes to dark green */
 }
 
 /* Navigation bar styles */
@@ -86,9 +86,10 @@ p {
     align-items: center;
 }
 
-/* Media queries for iPad (medium size screen) */
+/* Media queries for iPad (medium size screen) - Serif font */
 @media (max-width: 1024px) and (min-width: 768px) {
     body {
+        font-family: 'Georgia', 'Times New Roman', serif; /* Serif font */
         background-color: lightblue; /* Change background color to light blue */
         color: darkblue; /* Text color changes to dark blue */
     }
@@ -111,25 +112,43 @@ p {
     }
 }
 
-/* Media queries for mobile (small size screen) */
-@media (max-width: 767px) {
+/* Media queries for Desktop (large size screen) - Cute font */
+@media (min-width: 1025px) {
     body {
-        background-color: lightgreen; /* Change background color to light green */
-        color: darkgreen; /* Text color changes to dark green */
+        font-family: 'Comic Sans MS', 'Chalkboard', sans-serif; /* Cute font */
+        background-color: white;
+        color: black;
     }
 
     h1 {
-        font-size: 24px; /* Adjust font size for small screens */
+        font-size: 32px;
     }
 
     p {
-        font-size: 12px;
+        font-size: 16px;
     }
 
     .img {
-        max-width: 200px; /* Image size for small screens */
+        max-width: 300px;
     }
 
+    .container {
+        max-width: 800px;
+    }
+}
+
+/* Section padding */
+section {
+    padding: 20px 10px;
+}
+
+/* Default background for the home section */
+#home {
+    background-color: azure; /* Light blue background for first section */
+}
+
+/* Media queries for mobile (small size screen) */
+@media (max-width: 767px) {
     nav {
         flex-direction: column;
         align-items: center;
@@ -144,14 +163,8 @@ p {
         max-width: 90%;
         background-color: #dff0d8; /* A different container background for mobile */
     }
-}
 
-/* Section padding */
-section {
-    padding: 20px 10px;
-}
-
-/* Default background for the home section */
-#home {
-    background-color: azure; /* Light blue background for first section */
+    .img {
+        max-width: 200px; /* Image size for small screens */
+    }
 }
