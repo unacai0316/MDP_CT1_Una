@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+      html, body {
+        height: 100%;
+      }
+      .container {
+        background-color: lavenderblush; /* 設定容器背景顏色 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80%; /* 調整高度以留白 */
+        width: 80%; /* 調整寬度以留白 */
+        margin: auto; /* 使容器居中並留白 */
+      }
+      canvas {
+        display: block;
+        width: 80%; /* 縮小 canvas */
+        height: 80%; /* 縮小 canvas */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Test I want to make the bear small please</h1>
+    <div class="container">
+      <canvas id="canvas3d"></canvas>
+    </div>
+    <script type="module">
+      import { Application } from './runtime.js';
+      const canvas = document.getElementById('canvas3d');
+      const app = new Application(canvas);
+      app.load('./scene.splinecode');
+    </script>
+  </body>
+
+
+</html>
