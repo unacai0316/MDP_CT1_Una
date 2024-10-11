@@ -8,7 +8,7 @@ let bkgClr
 let posX, posY;
 
 function setup() {
-  createCanvas(600, 600);
+  createCanvas(windowWidth, windowHeight);
   colorMode(HSB, TWO_PI, 1, 1);
 
   radius = width * 0.1;
@@ -32,4 +32,8 @@ function draw() {
     arc(0, 0, diameter, diameter, HALF_PI + QUARTER_PI, QUARTER_PI);
     pop();
   }
+}
+
+function windowResized(){
+  resizeCanvas(windowWidth, windowHeight)
 }
