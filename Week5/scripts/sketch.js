@@ -4,11 +4,11 @@ let numRings = 10;
 let strWeight = 20;
 let timerID
 let bkgClr
-
 let posX, posY;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+
   colorMode(HSB, TWO_PI, 1, 1);
 
   radius = width * 0.1;
