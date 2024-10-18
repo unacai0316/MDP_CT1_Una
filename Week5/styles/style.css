@@ -1,22 +1,22 @@
 body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  margin: 0 auto;
-  max-width: 800px;
-  padding: 20px;
+  font-family: Arial, sans-serif; /* 字體設置 */
+  line-height: 1.6; /* 行高設置 */
+  margin: 0 auto; /* 自動水平居中 */
+  max-width: 800px; /* 最大寬度設置 */
+  padding: 20px; /* 內邊距設置 */
 }
 h1, h2 {
-  color: #333;
+  color: #333; /* 標題顏色設置 */
 }
 .iteration {
-  margin-bottom: 30px;
+  margin-bottom: 30px; /* 底部外邊距設置 */
 }
 .iteration img {
-  max-width: 100%;
-  height: auto;
+  max-width: 100%; /* 圖片最大寬度設置 */
+  height: auto; /* 圖片高度自動調整 */
 }
 #sketch-holder {
-  width: 100%;
-  height: 600px;
-  margin-top: 20px;
+  width: 100%; /* 寬度設置 */
+  height: 600px; /* 高度設置 */
+  margin-top: 20px; /* 頂部外邊距設置 */
 }

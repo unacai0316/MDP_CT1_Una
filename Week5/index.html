@@ -4,44 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bees and Flower Animation - Documentation</title>
+    <!-- 引入 p5.js 庫 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <link rel="stylesheet" href="styles/style.css">
+    <!-- 引入 sketch.js 文件 -->
     <script src="scripts/sketch.js"></script>
 </head>
 <body>
     <h1>Bees and Flower</h1>
+    <!-- 提供一個鏈接到 p5.js 編輯器中的草圖 -->
     <a href="https://editor.p5js.org/yunzhentsai/sketches/bgd5slld4" target="_blank">View the Sketch on p5.js Editor</a>
+    <!-- 用於放置 p5.js 畫布的 div -->
     <div id="sketch-holder"></div>
 
     <h2>Evolution of Work</h2>
     
     <div class="iteration">
         <h3>Iteration 1: Basic Setup</h3>
+        <!-- 顯示基本設置的圖片 -->
         <img src="/images/01.png" alt="Basic setup with canvas">
+        <!-- 描述基本設置 -->
         <p>Initial setup of the canvas with a simple flower and basic circular motion for bees. The shapes were basic geometric forms without organic movement.</p>
     </div>
     
     <div class="iteration">
         <h3>Iteration 2: Organic Shapes</h3>
+        <!-- 顯示有機形狀的圖片 -->
         <img src="/images/02.png" alt="Organic shapes added">
+        <!-- 描述有機形狀的添加 -->
         <p>Introduced the drawOrganicShape function to create more natural-looking forms for both the flower and bees. This added a slight "wobble" effect to the shapes.</p>
     </div>
     
     <div class="iteration">
         <h3>Iteration 3: Enhanced Organic Movement</h3>
+        <!-- 顯示增強有機運動的圖片 -->
         <img src="/images/03.jpg" alt="Enhanced organic movement">
+        <!-- 描述增強有機運動 -->
         <p>Improved the organic movement by increasing the range of shape deformation and adding individual noise offsets for each shape part. This created more distinct and natural-looking movements.</p>
     </div>
     
     <div class="iteration">
         <h4>Iteration 4: Color Changes and Transparency</h4>
+        <!-- 顯示顏色變化和透明度的圖片 -->
         <img src="/images/04.jpg" alt="Color changes and transparency">
+        <!-- 描述顏色變化和透明度 -->
         <p>Implemented color changing for both bees and flower. bees' body change within yellowish, wings change within blueish, Flower change within warm colors.</p>
     </div>
     
     <div class="iteration">
         <h3>Iteration 5: Detailed Bee Anatomy</h3>
+        <!-- 顯示詳細蜜蜂解剖的圖片 -->
         <img src="/images/05.jpg" alt="Detailed bee anatomy">
+        <!-- 描述詳細蜜蜂解剖 -->
         <p>Added more details to the bees, including eyes(white/black), a sting, and more defined wings(translate/rotate). Each part of the bee now has its own organic shape and movement, creating a dumb and cute visual.
 
         Created "drawOrganicTriangle" function to draw the sting of the bee!
@@ -50,7 +64,9 @@
     
     <div class="iteration">
         <h3>Iteration 6: Fine-tuning and Performance</h3>
+        <!-- 顯示微調和性能優化的圖片 -->
         <img src="/images/06.jpg" alt="Fine-tuned animation">
+        <!-- 描述微調和性能優化 -->
         <p>After I embbed the scipt into the webpage I noticed bees were moving too fast so I narrowed down the random range of "bee.speed", now the sketch won't easily make you dizzy.</p>
     </div>
 
