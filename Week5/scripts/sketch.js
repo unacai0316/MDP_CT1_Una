@@ -7,9 +7,10 @@ let beeSpeed = 0.01; // Initial speed
 function setup() {
   let canvas = createCanvas(800, 600);
   canvas.parent('sketch-holder'); // Specify the parent element for the canvas
+
   flower = new Flower(width / 2, height / 2, 100);
   // Create 5 bees
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 50; i++) {
     bees.push(new Bee(random(width), random(height)));
   }
   noStroke();
