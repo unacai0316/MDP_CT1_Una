@@ -1,6 +1,6 @@
 /* Reset some default browser styles */
-body, h1, p, button, section, header, main, footer {
-    max-width: 1000px;
+body, h1, button, section, header, main, footer {
+    max-width: 900px;
     margin: 0 auto; /* Center the elements horizontally */
     padding: 40;
     box-sizing: border-box;
@@ -94,4 +94,13 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+/* Style list items */
+li {
+    font-size: 18px; /* Increase font size */
+}
+
+p, li{
+    max-width: 500px;
+    margin: 0 auto; /* Center the elements horizontally */
 }
