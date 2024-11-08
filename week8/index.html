@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather-based Outfit Recommender Documentation</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.0.2/dist/mermaid.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Weather-based Outfit Recommender</h1>
+        <p class="subtitle">Interactive Experience with Machine Learning</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#system-design">System Design</a></li>
+            <li><a href="#development">Development Process</a></li>
+            <li><a href="#demo">Demo</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="demo" class="demo-section">
+            <h2>Live Demo</h2>
+            <p>please go to <a href="https://editor.p5js.org/yunzhentsai/full/TwQ_ZwUBC" target="_blank">p5.js editor</a> to see it fully work. Put a black thing in front of the camera to experience 'night' outfit recommendation!</p>
+            <div id="sketch-holder"></div>
+        </section>
+    
+        <section id="overview">
+            <h2>Project Overview</h2>
+            <p>This project creates an interactive experience that recommends outfits based on real-world weather conditions, detected through computer vision using Teachable Machine.</p>
+        </section>
+
+        <section id="system-design">
+            <h2>System Design</h2>
+            
+            <h3>Clothing Classification System</h3>
+            <div class="weather-table-container">
+                <table class="weather-table">
+                    <thead>
+                        <tr>
+                            <th>Weather Type</th>
+                            <th>Top</th>
+                            <th>Bottom</th>
+                            <th>Dress</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="weather-type sunny">Sunny</td>
+                            <td>Medium, Breathable</td>
+                            <td>Short, Cool</td>
+                            <td>Medium, Cool</td>
+                        </tr>
+                        <tr>
+                            <td class="weather-type cloudy">Cloudy</td>
+                            <td>Medium, Breathable</td>
+                            <td>Long, Warm</td>
+                            <td>Long, Cool</td>
+                        </tr>
+                        <tr>
+                            <td class="weather-type rainy">Rainy</td>
+                            <td>Long, Waterproof</td>
+                            <td>Long, Warm</td>
+                            <td class="not-recommended">Not Recommended</td>
+                        </tr>
+                        <tr>
+                            <td class="weather-type night">Night</td>
+                            <td>Long, Warm</td>
+                            <td>Long, Warm</td>
+                            <td>Long, Thick</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Clothing Properties</h3>
+            <div class="properties-grid">
+                <div class="property-category">
+                    <h4>Length</h4>
+                    <ul>
+                        <li>Short</li>
+                        <li>Medium</li>
+                        <li>Long</li>
+                    </ul>
+                </div>
+                <div class="property-category">
+                    <h4>Temperature/Material</h4>
+                    <ul>
+                        <li>Cool</li>
+                        <li>Warm</li>
+                        <li>Hot</li>
+                        <li>Waterproof</li>
+                        <li>Breathable</li>
+                        <li>Thick</li>
+                    </ul>
+                </div>
+                <div class="property-category">
+                    <h4>Style</h4>
+                    <ul>
+                        <li>Casual</li>
+                        <li>Formal</li>
+                        <li>Athletic</li>
+                        <li>Vintage</li>
+                        <li>Modern</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="development">
+            <h2>Development Process & Debugging</h2>
+            
+            <h3>Major Challenges</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>Challenge 1: ML5.js Classification Issues</h4>
+                    <p>Initial implementation faced problems with continuous classification causing stack overflow.</p>
+                    <div class="solution">
+                        <h5>Solution:</h5>
+                        <p>Implemented rate limiting and proper async/await handling for classification.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>Challenge 2: Image Loading and Display</h4>
+                    <p>Issues with loading and displaying clothing images in the correct format.</p>
+                    <div class="solution">
+                        <h5>Solution:</h5>
+                        <p>Implemented proper preloading and error handling for images. Some naming systems issues and typos.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>Challenge 3: Gesture Recognition Accuracy</h4>
+                    <p>Initial gesture recognition was unstable and prone to false positives.</p>
+                    <div class="solution">
+                        <h5>Solution:</h5>
+                        <p>Added confidence threshold and improved model training.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Created by Una Cai 2024 - Creative Technology Course Project</p>
+    </footer>
+
+    <script src="js/sketch.js"></script>
+    <script src="js/diagram.js"></script>
+</body>
+</html>
