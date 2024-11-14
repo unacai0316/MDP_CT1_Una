@@ -3,6 +3,7 @@ let video;
 let canvas;
 let ctx;
 let webcamRunning = false;
+let lockedTransforms = new Map(); // 儲存已鎖定的轉換結果
 
 async function setupMediaPipe() {
     try {
@@ -10,21 +11,29 @@ async function setupMediaPipe() {
             "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm"
         );
         
-        // 調整模型參數，降低偵測閾值以增加偵測靈敏度
         detector = await ObjectDetector.createFromOptions(vision, {
             baseOptions: {
                 modelAssetPath: "https://storage.googleapis.com/mediapipe-models/object_detector/efficientdet_lite0/float16/1/efficientdet_lite0.tflite",
                 delegate: "GPU"
             },
-            scoreThreshold: 0.3,  // 降低閾值
-            maxResults: 5         // 減少最大結果數以提高效能
+            scoreThreshold: 0.5,
+            maxResults: 5
         });
         
         console.log("模型載入完成");
         await setupCamera();
+        setupResetButton();
     } catch (error) {
         console.error("MediaPipe 初始化錯誤:", error);
     }
+}
+
+function setupResetButton() {
+    const resetButton = document.getElementById('resetButton');
+    resetButton.addEventListener('click', () => {
+        lockedTransforms.clear(); // clear all locked transforms
+        console.log("reset all transforms");
+    });
 }
 
 async function setupCamera() {
@@ -35,10 +44,9 @@ async function setupCamera() {
     try {
         const stream = await navigator.mediaDevices.getUserMedia({
             video: {
-                width: 1280,          // 增加解析度
+                width: 1280,
                 height: 720,
-                facingMode: "environment",  // 確保使用後置鏡頭
-                focusMode: "continuous"     // 自動對焦
+                facingMode: "environment"
             }
         });
         
@@ -54,6 +62,29 @@ async function setupCamera() {
     }
 }
 
+// Generate a unique identifier for the person
+function generateObjectId(box) {
+    // Generate a unique identifier using the position (tolerates slight movements)
+    const gridSize = 500; // how tolerant to the position
+    const x = Math.floor(box.originX / gridSize);
+    const y = Math.floor(box.originY / gridSize);
+    return `${x}-${y}`;
+}
+
+// Get the transformed object
+function getTransformedObject(objectId) {
+    if (!lockedTransforms.has(objectId)) {
+        const alternativeObjects = [
+            "giraffe", "elephant", "penguin", "dinosaur", 
+            "robot", "unicorn", "dragon", "teddy bear",
+            "spaceship", "submarine", "hot air balloon"
+        ];
+        const randomIndex = Math.floor(Math.random() * alternativeObjects.length);
+        lockedTransforms.set(objectId, alternativeObjects[randomIndex]);
+    }
+    return lockedTransforms.get(objectId);
+}
+
 async function detectFrame() {
     if (!webcamRunning) return;
     
@@ -61,24 +92,26 @@ async function detectFrame() {
         const detections = await detector.detect(video);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
-        // 顯示所有偵測結果，包含信心度低的
         const resultsDiv = document.getElementById("results");
-        resultsDiv.innerHTML = "偵測結果：<br>";
+        resultsDiv.innerHTML = "轉換結果：<br>";
         
         detections.detections.forEach(detection => {
             const box = detection.boundingBox;
-            const label = detection.categories[0].categoryName;
+            let originalLabel = detection.categories[0].categoryName;
             const score = detection.categories[0].score;
             
-            // 顯示所有偵測到的物體及其信心度
-            resultsDiv.innerHTML += `${label}: ${(score * 100).toFixed(1)}%<br>`;
+            let displayLabel = originalLabel;
+            let boxColor = "#FF0000";
             
-            // 繪製所有偵測框，使用不同顏色區分雲和其他物體
-            if (label.toLowerCase() === "cloud") {
-                drawBox(box, label, score, "#00FF00");  // 雲用綠色標示
-            } else {
-                drawBox(box, label, score, "#FF0000");  // 其他物體用紅色標示
+            if (originalLabel.toLowerCase() === "person") {
+                const objectId = generateObjectId(box);
+                displayLabel = getTransformedObject(objectId);
+                boxColor = "#00FF00";
+                
+                resultsDiv.innerHTML += `人物被轉換為：${displayLabel}<br>`;
             }
+            
+            drawBox(box, displayLabel, score, boxColor);
         });
         
         requestAnimationFrame(detectFrame);
@@ -95,27 +128,25 @@ function drawBox(box, label, score, color) {
     ctx.strokeRect(box.originX, box.originY, box.width, box.height);
     
     // 繪製半透明填充
-    ctx.fillStyle = `${color}33`;  // 33 為透明度
+    ctx.fillStyle = `${color}33`;
     ctx.fillRect(box.originX, box.originY, box.width, box.height);
     
     // 繪製標籤文字
     const text = `${label}: ${(score * 100).toFixed(1)}%`;
-    ctx.font = "bold 16px Arial";
+    ctx.font = "bold 18px Arial";
     const textWidth = ctx.measureText(text).width;
     
     // 標籤背景
     ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
-    ctx.fillRect(box.originX, box.originY - 25, textWidth + 10, 25);
+    ctx.fillRect(box.originX, box.originY - 30, textWidth + 10, 30);
     
     // 標籤文字
     ctx.fillStyle = "#FFFFFF";
-    ctx.fillText(text, box.originX + 5, box.originY - 7);
+    ctx.fillText(text, box.originX + 5, box.originY - 8);
 }
 
-// 在頁面載入完成後初始化
 document.addEventListener('DOMContentLoaded', setupMediaPipe);
 
-// 加入錯誤處理的全局監聽器
 window.addEventListener('error', function(error) {
     console.error('全局錯誤:', error);
 });
