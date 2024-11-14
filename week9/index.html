@@ -3,8 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Person Transformation</title>
+    <title>Object Detection with Multiple Models</title>
+    <!-- MediaPipe -->
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3"></script>
+    <!-- TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.15.0/dist/tf.min.js"></script>
+    <!-- MobileNet -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@1.0.0"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,12 +18,7 @@
         <canvas id="overlay"></canvas>
     </div>
     <div id="results"></div>
-    <button id="resetButton">detect again</button>
-    <script type="module">
-        import { FilesetResolver, ObjectDetector } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/vision_bundle.mjs";
-        window.FilesetResolver = FilesetResolver;
-        window.ObjectDetector = ObjectDetector;
-    </script>
-    <script src="script.js"></script>
+    <button id="resetButton">重新偵測</button>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
