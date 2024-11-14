@@ -5,6 +5,26 @@ let ctx;
 let webcamRunning = false;
 let lockedTransforms = new Map(); // 儲存已鎖定的轉換結果
 
+// use COCO objects instead
+const COCO_OBJECTS = [
+    'person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus',
+    'train', 'truck', 'boat', 'traffic light', 'fire hydrant', 'stop sign',
+    'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow',
+    'elephant', 'bear', 'zebra', 'giraffe', 'backpack', 'umbrella', 'handbag',
+    'tie', 'suitcase', 'frisbee', 'skis', 'snowboard', 'sports ball', 'kite',
+    'baseball bat', 'baseball glove', 'skateboard', 'surfboard', 'tennis racket',
+    'bottle', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana',
+    'apple', 'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza',
+    'donut', 'cake', 'chair', 'couch', 'potted plant', 'bed', 'dining table',
+    'toilet', 'tv', 'laptop', 'mouse', 'remote', 'keyboard', 'cell phone',
+    'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock',
+    'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush'
+];
+
+// exclude unwanted objects（for person）
+const EXCLUDED_OBJECTS = ['person'];
+const VALID_OBJECTS = COCO_OBJECTS.filter(obj => !EXCLUDED_OBJECTS.includes(obj));
+
 async function setupMediaPipe() {
     try {
         const vision = await FilesetResolver.forVisionTasks(
@@ -31,8 +51,8 @@ async function setupMediaPipe() {
 function setupResetButton() {
     const resetButton = document.getElementById('resetButton');
     resetButton.addEventListener('click', () => {
-        lockedTransforms.clear(); // clear all locked transforms
-        console.log("reset all transforms");
+        lockedTransforms.clear();
+        console.log("重置所有轉換");
     });
 }
 
@@ -62,25 +82,20 @@ async function setupCamera() {
     }
 }
 
-// Generate a unique identifier for the person
 function generateObjectId(box) {
-    // Generate a unique identifier using the position (tolerates slight movements)
-    const gridSize = 500; // how tolerant to the position
+    const gridSize = 500;
     const x = Math.floor(box.originX / gridSize);
     const y = Math.floor(box.originY / gridSize);
     return `${x}-${y}`;
 }
 
-// Get the transformed object
+// 修改 getTransformedObject 函數使用 COCO 物件
 function getTransformedObject(objectId) {
     if (!lockedTransforms.has(objectId)) {
-        const alternativeObjects = [
-            "giraffe", "elephant", "penguin", "dinosaur", 
-            "robot", "unicorn", "dragon", "teddy bear",
-            "spaceship", "submarine", "hot air balloon"
-        ];
-        const randomIndex = Math.floor(Math.random() * alternativeObjects.length);
-        lockedTransforms.set(objectId, alternativeObjects[randomIndex]);
+        const randomIndex = Math.floor(Math.random() * VALID_OBJECTS.length);
+        const selectedObject = VALID_OBJECTS[randomIndex];
+        lockedTransforms.set(objectId, selectedObject);
+        console.log(`新轉換: ${selectedObject}`); // 用於除錯
     }
     return lockedTransforms.get(objectId);
 }
@@ -122,25 +137,20 @@ async function detectFrame() {
 }
 
 function drawBox(box, label, score, color) {
-    // 繪製邊界框
     ctx.strokeStyle = color;
     ctx.lineWidth = 3;
     ctx.strokeRect(box.originX, box.originY, box.width, box.height);
     
-    // 繪製半透明填充
     ctx.fillStyle = `${color}33`;
     ctx.fillRect(box.originX, box.originY, box.width, box.height);
     
-    // 繪製標籤文字
     const text = `${label}: ${(score * 100).toFixed(1)}%`;
     ctx.font = "bold 18px Arial";
     const textWidth = ctx.measureText(text).width;
     
-    // 標籤背景
     ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
     ctx.fillRect(box.originX, box.originY - 30, textWidth + 10, 30);
     
-    // 標籤文字
     ctx.fillStyle = "#FFFFFF";
     ctx.fillText(text, box.originX + 5, box.originY - 8);
 }
