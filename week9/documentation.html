@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud(Person) Imagination - Documentation</title>
+    <link rel="stylesheet" href="documentation.css">
+</head>
+<body>
+    <div class="nav-header">
+        <a href="index.html">← Back to Application</a>
+        <a href="#overview">Overview</a>
+        <a href="#part-a">Part A: Detection</a>
+        <a href="#part-b">Part B: Implementation</a>
+    </div>
+
+    <div class="container">
+        <h1>Cloud(Person) Imagination Project - Technical Documentation</h1>
+        
+        <section id="overview" class="section">
+            <h2>Project Overview</h2>
+            <p>A: Guess what it is → B: Paste the guess object image to the subject</p>
+            
+            <div class="key-points">
+                <h3>KEYPOINTS:</h3>
+                <ul>
+                    <li>MediaPipe also doesn't allow low confidence object to be shown.</li>
+                    <li>Clouds are hard to be detected so I changed the subject to person</li>
+                    <li>'Locked transforms' map() for detection to be fixed once started and stop it from changing.</li>
+                    <li>Plan B: just random assign objects to the person (instead of pulling results from low-confidence detection)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="part-a" class="section">
+            <h2>Part A - Detection Process</h2>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <h3>MediaPipe Integration</h3>
+                <p>Import mediapipe Object detection task guide thru CDN (npm didn't work)</p>
+                <img src="Cloud(Person)%20imagination%2013e7b7dc3c6280a29137dc7220b7a267/Screenshot_2024-11-13_at_8.06.20_PM.png" alt="MediaPipe Integration">
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <h3>Cloud Detection Tests</h3>
+                <p>Right now I'm excluding the outcome of "cloud". Outcome was that when cloud is shown, nothing is detected.</p>
+                <img src="Cloud(Person)%20imagination%2013e7b7dc3c6280a29137dc7220b7a267/Screenshot_2024-11-13_at_8.36.06_PM.png" alt="Cloud Detection Test">
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <h3>Detection Threshold Experiments</h3>
+                <p>Don't exclude "cloud", but replace it with something else. Made a list of substitute things. Made confidence score low > 0.001.</p>
+                <img src="Cloud(Person)%20imagination%2013e7b7dc3c6280a29137dc7220b7a267/Screenshot_2024-11-13_at_8.38.18_PM.png" alt="Threshold Experiments">
+                
+                <div class="implementation-note">
+                    <p>3.1 Nothing was detected. Changed the score(threshold) lower. (0.00001) Still nothings was detected. Let's try if it can actually detect clouds first.(I'm using cloud pics on my phone)</p>
+                    <p>3.2 tried a lot of cloud pics. can't be detected. I'm changing the theme from "cloud" to "person". (easy to detect)</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                <h3>Person Detection Implementation</h3>
+                <p>It works. I was successfully detected as something else, but the detection was always changing. I want it to be locked in unless I want it to be re-detected.</p>
+                <img src="Cloud(Person)%20imagination%2013e7b7dc3c6280a29137dc7220b7a267/Screen_Recording_2024-11-13_at_9.01.21_PM.gif" alt="Person Detection Demo">
+            </div>
+
+            <div class="step">
+                <span class="step-number">5</span>
+                <h3>Detection Locking Mechanism</h3>
+                <p>Trying to fix the constant changing detection thing. Added a button to re-detect "person". The detection was successfully locked as long as I don't move too much. If I moved it'd re-detect.(related to gridSize explained below)</p>
+                <img src="Cloud(Person)%20imagination%2013e7b7dc3c6280a29137dc7220b7a267/Screenshot_2024-11-13_at_9.08.18_PM.png" alt="Detection Lock">
+            </div>
+
+            <div class="step">
+                <span class="step-number">6</span>
+                <h3>Transform Mapping</h3>
+                <img src="Cloud(Person)%20imagination%2013e7b7dc3c6280a29137dc7220b7a267/Screenshot_2024-11-13_at_9.21.44_PM.png" alt="Transform Mapping">
+                <p>Map is to store person position info and corresponding converted object ex: 1-2=elephant, 3-4=robot.</p>
+                
+                <img src="Cloud(Person)%20imagination%2013e7b7dc3c6280a29137dc7220b7a267/Screenshot_2024-11-13_at_9.26.50_PM.png" alt="Transform Reset">
+                <p>This function is to clear "lockedTransforms" map info and re-detect so new transform info can be stored in map.</p>
+                
+                <img src="Cloud(Person)%20imagination%2013e7b7dc3c6280a29137dc7220b7a267/Screenshot_2024-11-13_at_9.29.41_PM.png" alt="Grid System">
+                <p>This function create an ID for the person and by adjusting "gridSize" I can determine if I want people moving around to have different objects. For example when my head is on the top I'm "a", and when I'm in the center I'm "b". Right now I changed the gridSize to "500" (a lot), so I can move around and my transformation object won't change.</p>
+            </div>
+
+            <div class="step">
+                <span class="step-number">7</span>
+                <h3>COCO Objects Integration</h3>
+                <p>Imported coco objects list (supported by Mediapipe)</p>
+                <img src="Cloud(Person)%20imagination%2013e7b7dc3c6280a29137dc7220b7a267/Screenshot_2024-11-13_at_9.43.40_PM.png" alt="COCO Objects">
+            </div>
+            
+			<div class="step">
+                <span class="step-number">8</span>
+                <h3>Low Confidence Detection Experiments</h3>
+                <p>The problem now is I'm only randomly assign these objects to the person and not actually extract other outcome from the detection for alikeness. Now I'm going to try actually make it show other low confidence outcome.</p>
+                <p>I set the threshold to very low and list out up to 20 results, but I could still only got "person".</p>
+                <img src="Cloud(Person)%20imagination%2013e7b7dc3c6280a29137dc7220b7a267/Screenshot_2024-11-13_at_10.00.42_PM.png" alt="Low Confidence Detection">
+            </div>
+
+            <div class="step">
+                <h3>Position-Based Detection System</h3>
+                <p>6.1 Tried a different way to pull low confidence object: check if there's any detection around similar (x,y) to human.</p>
+                <img src="Cloud(Person)%20imagination%2013e7b7dc3c6280a29137dc7220b7a267/Screenshot_2024-11-13_at_10.16.13_PM.png" alt="Position Detection">
+
+                <div class="implementation-note">
+                    <h4>Detection Example:</h4>
+                    <div class="ascii-art">
+screen：
++------------------+
+|      person               |
+|    ┌──┐              |
+|     │          │                |
+|    └──┘              |
++------------------+
+
+detection outcome：
+1. person (0.95) ┌──┐
+2. chair (0.3)        │          │
+3. tv (0.15)          └──┘</div>
+                </div>
+
+                <div class="note">
+                    <h4>Final show chose chair as result because:</h4>
+                    <ul>
+                        <li>Its detected position is overlapped w person.</li>
+                        <li>Has highest confidence among non-person outcomes.</li>
+                    </ul>
+                </div>
+
+                <img src="Cloud(Person)%20imagination%2013e7b7dc3c6280a29137dc7220b7a267/Screen_Recording_2024-11-13_at_10.10.38_PM.gif" alt="Detection Demo">
+                
+                <p><strong>Problem:</strong> it's effected by my surroundings things too much. and it looks chaotic visually now.</p>
+                <p><strong>Fix:</strong> filter out things too small (ex. background stuff)</p>
+                <img src="Cloud(Person)%20imagination%2013e7b7dc3c6280a29137dc7220b7a267/Screenshot_2024-11-13_at_10.24.30_PM.png" alt="Size Filtering">
+            </div>
+
+            <div class="step">
+                <span class="step-number">9</span>
+                <h3>Detection Refinement</h3>
+                <p>Now I filtered out all the small things in the background, I don't get any other outcomes for the person, which mean all the other outcomes were from background objects not really from the person.</p>
+                <img src="Cloud(Person)%20imagination%2013e7b7dc3c6280a29137dc7220b7a267/Screenshot_2024-11-13_at_10.26.39_PM.png" alt="Detection Refinement">
+                <p class="note"><strong>SO I THINK: Mediapipe also doesn't allow low confidence object to be shown.</strong></p>
+            </div>
+
+            <div class="step">
+                <span class="step-number">10</span>
+                <h3>MobileNet Integration</h3>
+                <p>I added the other model to get more object outcomes</p>
+                <p><strong>New Attempt: Mediapipe(for person (x,y) detection) + MobileNet Classifier<br/>
+                WHY?</strong><br/>
+                Because Mediapipe object detector is better at detecting object position, not what the object could look like.<br/>
+                <strong>MobileNet Image Classification,</strong><br/>
+                on the other hand, is good at giving out different posibilities but doesn't have the position(x,y) info.</p>
+                
+                <img src="Cloud(Person)%20imagination%2013e7b7dc3c6280a29137dc7220b7a267/Screenshot_2024-11-13_at_11.01.39_PM.png" alt="MobileNet Integration">
+
+                <div class="implementation-note">
+                    <p>8.1 The only drawback of this version is that MobileNet is classifying the person through their traits for example what they wear.</p>
+                    
+                    <div class="code-explanation">
+// The typical output of MobileNet may be:
+[
+    { className: "t-shirt", probability: 0.8 },
+    { className: "sunglasses", probability: 0.6 },
+    { className: "jean", probability: 0.5 }
+]
+
+// And NOT results like this:
+[
+    { className: "elephant", probability: 0.8 },
+    { className: "tree", probability: 0.6 },
+    { className: "mountain", probability: 0.5 }
+]</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="part-b" class="section">
+            <h2>Part B - Image Implementation</h2>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <h3>Image Loading System</h3>
+                <p>Create ImageLoader to set the API key, and store image on Map()</p>
+                <img src="Cloud(Person)%20imagination%2013e7b7dc3c6280a29137dc7220b7a267/Screenshot_2024-11-14_at_11.23.09_PM.png" alt="Image Loader">
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <h3>Image Caching</h3>
+                <p>Check is this label image has been fetched before so you avoid requesting and wasting API times.</p>
+                <img src="Cloud(Person)%20imagination%2013e7b7dc3c6280a29137dc7220b7a267/Screenshot_2024-11-14_at_11.25.30_PM.png" alt="Image Cache">
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <h3>Image Drawing Implementation</h3>
+                <p>Draw the image onto the person(x,y), if image wasn't fetched then draw original detection box.</p>
+                <img src="Cloud(Person)%20imagination%2013e7b7dc3c6280a29137dc7220b7a267/Screenshot_2024-11-14_at_11.28.44_PM.png" alt="Image Drawing">
+            </div>
+
+            <div class="section">
+                <h3>Successful Result:</h3>
+                <img class="gif-demo" src="Cloud(Person)%20imagination%2013e7b7dc3c6280a29137dc7220b7a267/Screen_Recording_2024-11-14_at_11.16.37_PM.gif" alt="Final Result">
+            </div>
+        </section>
+
+        <section id="conclusions" class="section">
+            <h2>Conclusions and Future Development</h2>
+            
+            <div class="conclusion">
+                <h3>Shape Analysis Possibilities (From Claude):</h3>
+                <ol class="solution-list">
+                    <li>Start with Basic Contour Detection:
+                        <ul>
+                            <li>Use basic contour detection from OpenCV.js</li>
+                            <li>Analyze simple shape features (area, perimeter, etc.)</li>
+                        </ul>
+                    </li>
+                    <li>Build a Shape Database:
+                        <ul>
+                            <li>Predefine features of basic shapes</li>
+                            <li>Establish a scoring system for shape matching</li>
+                        </ul>
+                    </li>
+                    <li>Gradually Increase Complexity:
+                        <ul>
+                            <li>Add more shape feature analysis</li>
+                            <li>Implement more sophisticated shape matching algorithms</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+            
+            <div class="note">
+                <p>It seems too hard for now so I decided to drop this part and just settle with Mediapipe & MobileNet, so I can move on to pasting images on to the person's position.</p>
+                <p>Clip mask 串連 stable diffusion API （limitation: have to train the model myself, limited amount of genres like cats.）</p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

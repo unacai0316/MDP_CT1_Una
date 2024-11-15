@@ -13,12 +13,18 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="header">
+        <h1>Person Guessing Imagination</h1>
+        <a href="documentation.html" class="doc-link">My Documentation of Process</a>
+    </div>
     <div class="container">
         <video id="webcam" autoplay playsinline></video>
         <canvas id="overlay"></canvas>
     </div>
-    <div id="results"></div>
-    <button id="resetButton">重新偵測</button>
-    <script type="module" src="script.js"></script>
+    <div class="control-panel">
+        <div id="results"></div>
+        <button id="resetButton">DETECT AGAIN</button>
+    </div>
+    <script src="script.js" type="module"></script>
 </body>
 </html>
