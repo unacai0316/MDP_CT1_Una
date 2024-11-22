@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP32 Sensor Testing Documentation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>ESP32 Sensor Testing Documentation</h1>
+        <p class="date">November 21, 2024</p>
+    </header>
+
+    <main>
+        <section id="overview">
+            <h2>Project Overview</h2>
+            <p>This documentation records the testing process of various sensors with ESP32, including temperature sensor (DS18B20), pressure sensor (FSR402), and tactile switch button.</p>
+        </section>
+
+        <section id="hardware">
+            <h2>Hardware Components</h2>
+            <ul>
+                <li>ESP32 Development Board</li>
+                <li>Full-size Breadboard</li>
+                <li>DS18B20 Temperature Sensor</li>
+                <li>FSR402 Pressure Sensor</li>
+                <li>Tactile Switch Button</li>
+                <li>47KΩ Resistor</li>
+                <li>220Ω Resistor</li>
+                <li>Various Jumper Wires</li>
+            </ul>
+        </section>
+
+        <section id="testing-process">
+            <h2>Testing Process Documentation</h2>
+            
+            <article class="test-phase">
+                <h3>Phase 1: Initial Setup and Temperature Sensor Test</h3>
+                <div class="image-container">
+                    <img src="images/setup1.jpg" alt="Initial breadboard setup">
+                    <p class="caption">Initial wiring attempt with DS18B20 temperature sensor</p>
+                </div>
+                <div class="code-container" data-language="cpp">
+                    <h4>Initial Temperature Sensor Code</h4>
+                    <pre><code id="initial-temp-code"></code></pre>
+                </div>
+                <div class="results">
+                    <h4>Results:</h4>
+                    <p>Temperature sensor reading: -127.00 (Error reading sensor)</p>
+                </div>
+            </article>
+
+            <article class="test-phase">
+                <h3>Phase 2: Pressure Sensor Testing</h3>
+                <div class="image-container">
+                    <img src="images/setup2.jpg" alt="Pressure sensor setup">
+                    <p class="caption">FSR402 pressure sensor wiring attempt</p>
+                </div>
+                <div class="code-container" data-language="cpp">
+                    <h4>Pressure Sensor Test Code</h4>
+                    <pre><code id="pressure-code"></code></pre>
+                </div>
+            </article>
+
+            <article class="test-phase">
+                <h3>Phase 3: Final Button Testing</h3>
+                <div class="image-container">
+                    <img src="images/setup3.jpg" alt="Button test setup">
+                    <p class="caption">Final testing configuration with tactile switch button</p>
+                </div>
+                <div class="code-container" data-language="cpp">
+                    <h4>Button Test Code</h4>
+                    <pre><code id="button-code"></code></pre>
+                </div>
+            </article>
+        </section>
+
+        <section id="lessons">
+            <h2>Key Findings and Lessons Learned</h2>
+            <ul>
+                <li>A0-A3 pins (GPIO36-39) don't support internal pullup resistors</li>
+                <li>Only A5 (GPIO33) showed consistent response in testing</li>
+                <li>Proper wire connections are crucial for sensor functionality</li>
+                <li>Testing each component individually helps isolate issues</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Documentation created for ESP32 sensor testing project</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
