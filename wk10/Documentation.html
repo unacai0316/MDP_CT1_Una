@@ -76,14 +76,135 @@
             </article>
         </section>
 
+
+        <h3>Phase 3:restart testing sensors with last wk class content</h3>
+        <div class="code-container" data-language="cpp">
+        <h4>Initial Base Code</h4>
+        <pre><code>
+        #define BTN1_PIN 13
+        #define BTN2_PIN 12
+        #define POT_PIN A0
+
+        void setup() {
+            pinMode(BTN1_PIN, INPUT);
+            pinMode(BTN2_PIN, INPUT);
+            pinMode(POT_PIN, INPUT);
+            Serial.begin(9600);
+        }
+
+        void loop() {
+            Serial.print(digitalRead(BTN1_PIN));
+            Serial.print(',');
+            Serial.print(digitalRead(BTN2_PIN));
+            Serial.print(',');
+            Serial.println(analogRead(POT_PIN));
+        }
+        </code></pre>
+        </div>
+        <div class="results">
+        <h4>Setup Details:</h4>
+        <ul>
+        <li>Started with classroom example setup</li>
+        <li>Two buttons controlling colors in Processing</li>
+        <li>Potentiometer controlling circle size</li>
+        <li>Working base configuration for further modifications</li>
+        </ul>
+        </div>
+
+
+        <h3>Phase 4: FSR Pressure Sensor Integration</h3>
+        <div class="code-container" data-language="cpp">
+        <h4>FSR Implementation Code</h4>
+        <pre><code>
+        #define BTN1_PIN 13        
+        #define FSR_PIN A2         
+        #define POT_PIN A0         
+
+        void setup() {
+            pinMode(BTN1_PIN, INPUT_PULLUP);    
+            pinMode(FSR_PIN, INPUT);
+            pinMode(POT_PIN, INPUT);
+            Serial.begin(9600);
+        }
+
+        void loop() {
+            int fsrValue = analogRead(FSR_PIN);
+            int fsrButton = (fsrValue > 500) ? 1 : 0;
+            
+            Serial.print(digitalRead(BTN1_PIN));
+            Serial.print(',');
+            Serial.print(fsrButton);               
+            Serial.print(',');
+            Serial.println(analogRead(POT_PIN));
+        }
+        </code></pre>
+        </div>
+        <div class="results">
+        <h4>Implementation Notes:</h4>
+        <ul>
+        <li>Successfully replaced BTN2 with FSR402 pressure sensor</li>
+        <li>Used 47KΩ resistor for voltage divider</li>
+        <li>Connected to A2 pin for stable readings</li>
+        <li>Implemented pressure threshold at 500 for digital conversion</li>
+        </ul>
+        </div>
+
+ 
+        <h3>Phase 5: Temperature Sensor Integration Attempt</h3>
+        <div class="code-container" data-language="cpp">
+        <h4>Temperature Sensor Code</h4>
+        <pre><code>
+        #include <OneWire.h>
+        #include <DallasTemperature.h>
+
+        #define BTN1_PIN 13        
+        #define FSR_PIN A2         
+        #define ONE_WIRE_BUS A1    
+
+        OneWire oneWire(ONE_WIRE_BUS);
+        DallasTemperature sensors(&oneWire);
+
+        void setup() {
+            pinMode(BTN1_PIN, INPUT_PULLUP);    
+            pinMode(FSR_PIN, INPUT);
+            Serial.begin(9600);
+            sensors.begin();
+        }
+
+        void loop() {
+            sensors.requestTemperatures();
+            float tempC = sensors.getTempCByIndex(0);
+            int mappedTemp = map(tempC * 100, 0, 5000, 0, 4095);
+            
+            Serial.print(digitalRead(BTN1_PIN));
+            Serial.print(',');
+            Serial.print(fsrButton);               
+            Serial.print(',');
+            Serial.println(mappedTemp);
+        }
+        </code></pre>
+        </div>
+        <div class="results">
+        <h4>Results:</h4>
+        <p>Initial temperature readings successful but encountered stability issues:</p>
+        <ul>
+        <li>Temperature readings showed -127°C error</li>
+        <li>Possible connection stability issues</li>
+        <li>Further investigation needed for reliable readings</li>
+        </ul>
+        </div>
+
+        <!-- Updated Key Findings -->
         <section id="lessons">
-            <h2>Key Findings and Lessons Learned</h2>
-            <ul>
-                <li>A0-A3 pins (GPIO36-39) don't support internal pullup resistors</li>
-                <li>Only A5 (GPIO33) showed consistent response in testing</li>
-                <li>Proper wire connections are crucial for sensor functionality</li>
-                <li>Testing each component individually helps isolate issues</li>
-            </ul>
+        <h2>Key Findings and Lessons Learned</h2>
+        <ul>
+        <li>Incremental modification approach more successful than complete rebuild</li>
+        <li>FSR sensor successfully implemented with proper voltage divider setup</li>
+        <li>Temperature sensor requires additional stability considerations</li>
+        <li>A2 pin proved most reliable for analog readings</li>
+        <li>Maintaining Processing compatibility while changing sensors is crucial</li>
+        <li>Testing components individually helps identify issues quickly</li>
+        </ul>
         </section>
     </main>
 
