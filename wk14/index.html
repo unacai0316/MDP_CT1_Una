@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Musical Interface Documentation</title>
+    <style>
+    @import url('style.css');
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Interactive Musical Interface Documentation</h1>
+        <p class="subtitle">A Physical Computing Project Using Arduino and Processing</p>
+    </header>
+
+    <main>
+        <section class="overview">
+            <h2>Project Overview</h2>
+            <p>This documentation covers the complete development process of transforming a mouse-controlled music visualization system into a physical sensor-based musical interface.</p>
+        </section>
+
+        <section class="original">
+            <h2>Original System</h2>
+            <p>The project started with a Processing-based music visualization system that included:</p>
+            <ul>
+                <li>Sound synthesis using sine and square wave oscillators</li>
+                <li>Audio effects including:
+                    <ul>
+                        <li>Low Pass Filter</li>
+                        <li>Reverb</li>
+                        <li>Delay</li>
+                    </ul>
+                </li>
+                <li>Visual effects:
+                    <ul>
+                        <li>Wave visualization</li>
+                        <li>Particle system</li>
+                        <li>Color-coded note display</li>
+                    </ul>
+                </li>
+                <li>Mouse control:
+                    <ul>
+                        <li>X position: controlled filter frequency and delay feedback</li>
+                        <li>Y position: controlled reverb wet level</li>
+                    </ul>
+                </li>
+                <li>Keyboard control for musical notes (A-K keys)</li>
+            </ul>
+        </section>
+
+        <section class="visualization">
+            <h2>Music Visualization System Design</h2>
+            
+            <article class="visualization-core">
+                <h3>Core Visualization Components</h3>
+                
+                <h4>1. Wave Visualization</h4>
+                <p>Multi-layered wave system for music visualization:</p>
+                <div class="code-block">
+        <pre>
+        //Wave parameters
+        float[] wavePoints;  //Store wave points
+        float waveSpeed = 0.05;  //Wave movement speed
+        float time = 0;  //Time parameter
+        
+        //Initialize in setup()
+        wavePoints = new float[width];  //Create wave array based on window width
+        
+        //Update and draw waves in draw()
+        time += waveSpeed;  //Update time for dynamic effect
+        
+        //Combine waves from all active notes
+        for (int i = 0; i < width; i++) {
+            float x = i;
+            float wave = 0;
+            
+            //Each active note generates a wave
+            for (int j = 0; j < visualizerValues.length; j++) {
+                float frequency = map(j, 0, visualizerValues.length, 0.01, 0.05);
+                wave += sin(x * frequency + time) * visualizerValues[j] * 30;
+            }
+            
+            wavePoints[i] = wave;  //Store combined waveform
+        }
+        
+        //Draw main waveform
+        stroke(0, 0, 0, 100);  //Semi-transparent black
+        strokeWeight(2);
+        noFill();
+        beginShape();
+        for (int i = 0; i < width; i++) {
+            vertex(i, height/2 + wavePoints[i]);
+        }
+        endShape();
+        </pre>
+                </div>
+                
+                <h4>2. Color System</h4>
+                <p>HSB color mode implementation for note-specific colors:</p>
+                <div class="code-block">
+        <pre>
+        //Setup colors in setup()
+        noteColors = new color[13];
+        colorMode(HSB, 360, 100, 100);
+        for (int i = 0; i < 13; i++) {
+            noteColors[i] = color(map(i, 0, 12, 0, 360), 80, 90);
+        }
+        
+        //Draw colored waves for each active note in draw()
+        for (int j = 0; j < visualizerValues.length; j++) {
+            if (visualizerValues[j] > 0.01) {
+                stroke(noteColors[j], 150);  //Use note-specific color
+                strokeWeight(1);
+                beginShape();
+                for (int i = 0; i < width; i++) {
+                    float frequency = map(j, 0, visualizerValues.length, 0.01, 0.05);
+                    float wave = sin(i * frequency + time) * visualizerValues[j] * 30;
+                    vertex(i, height/2 + wave);
+                }
+                endShape();
+            }
+        }
+        </pre>
+                </div>
+                
+                <h4>3. Particle System</h4>
+                <p>Particle system for enhanced visual effects:</p>
+                <div class="code-block">
+        <pre>
+        class Particle {
+            PVector position;
+            PVector velocity;
+            color particleColor;
+            float life;
+            float size;
+            
+            Particle(float x, float y, color c) {
+                position = new PVector(x, y);
+                velocity = new PVector(random(-2, 2), random(-8, -4));
+                particleColor = c;
+                life = 255;
+                size = random(4, 8);
+            }
+            
+            void update() {
+                velocity.y += 0.1;  //Gravity effect
+                position.add(velocity);
+                life -= 3;  //Decrease particle lifetime
+            }
+            
+            void display() {
+                noStroke();
+                fill(particleColor, life);
+                ellipse(position.x, position.y, size, size);
+            }
+        }
+        
+        //Generate particles when playing notes
+        void playNote(float noteFreq) {
+            //Other note playing code...
+            
+            //Create particle effects
+            for (int j = 0; j < 5; j++) {
+                particles.add(new Particle(i * (width/13) + (width/26), height/2, noteColors[i]));
+            }
+        }
+        </pre>
+                </div>
+                
+                <h4>4. Smooth Transitions</h4>
+                <p>Progressive value changes for smooth visual effects:</p>
+                <div class="code-block">
+        <pre>
+        //Visualization parameters
+        float[] visualizerValues;  //Current display values
+        float[] targetValues;      //Target values
+        float decayRate = 0.95;    //Decay rate
+        
+        //Update visualization values in draw()
+        for (int i = 0; i < visualizerValues.length; i++) {
+            //Use lerp for smooth transitions
+            visualizerValues[i] = lerp(visualizerValues[i], targetValues[i], 0.1);
+            //Apply decay effect
+            targetValues[i] *= decayRate;
+        }
+        </pre>
+                </div>
+                
+                <h4>5. Background Design</h4>
+                <p>Gradient background implementation:</p>
+                <div class="code-block">
+        <pre>
+        void setGradient(float x, float y, float w, float h, color c1, color c2) {
+            noFill();
+            for (float i = y; i <= y + h; i++) {
+                float inter = map(i, y, y + h, 0, 1);
+                color c = lerpColor(c1, c2, inter);
+                stroke(c);
+                line(x, i, x + w, i);
+            }
+        }
+        
+        //Use in draw()
+        color c1 = color(0, 0, 100);  //White in HSB
+        color c2 = color(map(mouseY, 0, height, 30, 60), 30, 90);
+        setGradient(0, 0, width, height, c1, c2);
+        </pre>
+                </div>
+            </article>
+        
+            <article class="design-decisions">
+                <h3>Design Decisions</h3>
+                <ul>
+                    <li>HSB Color Mode: Creates harmonious color scheme with unique but related colors for each note</li>
+                    <li>Multi-layer Waves: Main wave uses thicker lines and higher opacity, individual note waves use thinner lines and lower opacity for depth</li>
+                    <li>Particle System: Incorporates gravity effects and lifetime cycles for dynamic organic visuals</li>
+                    <li>Smooth Transitions: Uses lerp() function and decay rates to avoid sudden visual changes</li>
+                    <li>Gradient Background: Dynamic gradient creates rich visuals without overwhelming the foreground waves</li>
+                </ul>
+            </article>
+        </section>
+
+        <section class="hardware">
+            <h2>Hardware Development</h2>
+            
+            <article class="step">
+                <h3>1. Initial Joystick Assembly</h3>
+                <img src="/images/01.jpeg" alt="Joystick soldering process" class="process-img">
+                <p>First attempt involved soldering a custom joystick. After soldering, the Y-axis was broken and unfixable, so I had to borrow one from the sensor library.</p>
+            </article>
+
+            <article class="step">
+                <h3>2. Final Sensor Selection</h3>
+                <img src="/images/02.jpeg" alt="Selected sensors setup" class="process-img">
+                <p>Final hardware configuration:</p>
+                <ul>
+                    <li>Large joystick (X/Y axis on A0/A1)</li>
+                    <li>IR distance sensor (on A2)</li>
+                    <li>Button (on pin 13)</li>
+                </ul>
+                <div class="code-block">
+                    <h4>Arduino Pin Configuration:</h4>
+<pre>
+#define BTN_PIN 13    // Button
+#define IR_PIN A2     // IR Sensor
+#define JOY_X_PIN A0  // Joystick X
+#define JOY_Y_PIN A1  // Joystick Y
+</pre>
+                </div>
+            </article>
+
+            <article class="step">
+                <h3>3. Arduino Testing</h3>
+                <img src="/images/03.jpeg" alt="Serial monitor output" class="process-img">
+                <p>Initial testing with serial monitoring showed successful data transmission:</p>
+                <div class="code-block">
+<pre>
+void loop() {
+    Serial.print(analogRead(IR_PIN));
+    Serial.print(',');
+    Serial.print(analogRead(JOY_X_PIN));
+    Serial.print(',');
+    Serial.print(analogRead(JOY_Y_PIN));
+    Serial.print(',');
+    Serial.println(digitalRead(BTN_PIN));
+    delay(30);
+}
+</pre>
+                </div>
+            </article>
+
+            <article class="step">
+                <h3>4. Interface Construction</h3>
+                <img src="/images/04.jpeg" alt="Box cutting process" class="process-img">
+                <p>Created physical interface by modifying an enclosure box to house the sensors.</p>
+            </article>
+
+            <article class="step">
+                <h3>5. Physical Assembly</h3>
+                <img src="/images/05.jpeg" alt="Tape securing process" class="process-img">
+                <img src="/images/06.jpeg" alt="Completed physical assembly" class="process-img">
+                <p>Secured all sensors using tape for a robust physical interface.</p>
+            </article>
+        </section>
+
+        <section class="software">
+            <h2>Software Development</h2>
+            
+            <article class="step">
+                <h3>6. Processing Code Modifications</h3>
+                <img src="/images/07.jpeg" alt="Processing code modifications" class="process-img">
+                <p>Removed mouse control code:</p>
+                <div class="code-block">
+<pre>
+// Removed these mouse control lines
+float LPFreq = map(mouseX, 0, width, 300, 8000);
+lowPassFilter.freq(LPFreq);
+revWet = map(mouseY, 0, height, 1, 0);
+reverb.set(revRoom, revDamp, revWet);
+delayFeedback = map(mouseX, 0, width, 0, 1);
+delay.set(delayTime, delayFeedback);
+</pre>
+                </div>
+            </article>
+
+            <article class="step">
+                <h3>7. Sensor Mapping</h3>
+                <img src="/images/08.jpeg" alt="Sensor calibration process" class="process-img">
+                <p>Implemented sensor control in serialEvent:</p>
+                <div class="code-block">
+<pre>
+void serialEvent(Serial conn){
+    String incomingValues = conn.readString();
+    String[] values = split(trim(incomingValues), ',');
+    
+    if(values.length == 4){
+        // IR sensor range adjusted to 1100-2500
+        float lpFreq = map(float(values[0]), 1100, 2500, 300, 8000);
+        lowPassFilter.freq(lpFreq);
+        
+        // Joystick controls
+        delayFeedback = map(float(values[1]), 0, 1023, 0, 1);
+        delay.set(delayTime, delayFeedback);
+        
+        revWet = map(float(values[2]), 0, 1023, 0, 1);
+        reverb.set(revRoom, revDamp, revWet);
+    }
+}
+</pre>
+                </div>
+            </article>
+
+            <article class="step">
+                <h3>8. Sound Generation Enhancement</h3>
+                <img src="/images/09.jpeg" alt="Sound code modifications" class="process-img">
+                <p>Initial random note implementation:</p>
+                <div class="code-block">
+<pre>
+if(float(values[3]) == 1){
+    int noteIndex = int(random(13));
+    playNote(notes[noteIndex]);
+}
+</pre>
+                </div>
+            </article>
+
+            <article class="step">
+                <h3>9. Sound Refinement</h3>
+                <img src="/images/10.jpeg" alt="Final sound adjustments" class="process-img">
+                <p>Refined note range for more harmonious output:</p>
+                <div class="code-block">
+<pre>
+if(float(values[3]) == 1){
+    int noteIndex = int(random(7, 13));
+    playNote(notes[noteIndex]);
+}
+</pre>
+                </div>
+            </article>
+
+            <article class="step">
+                <h3>10. Final Implementation</h3>
+                <video src="/images/11.mov" controls class="final-video">
+                    <p>Your browser doesn't support HTML5 video.</p>
+                </video>
+                <p>The final system features:</p>
+                <ul>
+                    <li>IR sensor controlling low-pass filter (1100-2500 range)</li>
+                    <li>Joystick X controlling delay effect</li>
+                    <li>Joystick Y controlling reverb</li>
+                    <li>Button triggering random notes in higher octave range</li>
+                    <li>Real-time visualization of all audio parameters</li>
+                </ul>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>Documentation created for Physical Computing class project</p>
+    </footer>
+</body>
+</html>
